@@ -19,10 +19,10 @@ jobs:
             or:
               - equal: [ main, << pipeline.git.branch >> ]
               - equal: [ true, << pipeline.parameters.ECS_DEPLOY >> ]
-            steps:
-              - run:
-                  name: branch
-                  command: git rev-parse --abbrev-ref HEAD
-              - run:
-                  name: ECS_DEPLOY
-                  command: echo << pipeline.parameters.ECS_DEPLOY >>
+          steps:
+            - run:
+                name: branch
+                command: git rev-parse --abbrev-ref HEAD
+            - run:
+                name: ECS_DEPLOY
+                command: echo << pipeline.parameters.ECS_DEPLOY >>
