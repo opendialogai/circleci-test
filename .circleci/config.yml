@@ -1,4 +1,10 @@
 version: 2.1
+
+parameters:
+  ECS_DEPLOY:
+    type: boolean
+    default: false
+
 jobs:
   build:
     docker:
@@ -10,8 +16,13 @@ jobs:
 
       - when:
           condition:
-            equal: [ main, << pipeline.git.branch >> ]
-          steps:
-            - run:
-                name: running stuff for main branch
-                command: git rev-parse --abbrev-ref HEAD
+            or:
+              - equal: [ main, << pipeline.git.branch >> ]
+              - equal: [ true, << pipeline.parameters.ECS_DEPLOY >> ]
+            steps:
+              - run:
+                  name: branch
+                  command: git rev-parse --abbrev-ref HEAD
+              - run:
+                  name: ECS_DEPLOY
+                  command: echo << pipeline.parameters.ECS_DEPLOY >>
