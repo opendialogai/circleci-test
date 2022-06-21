@@ -1,8 +1,8 @@
 version: 2.0
 jobs:
   build:
-    # docker:
-    #   - image: cimg/python:2.7.16
+    docker:
+      - image: cimg/python:2.7.16
 
     steps:
       - checkout
